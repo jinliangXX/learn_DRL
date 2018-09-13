@@ -5,6 +5,8 @@
 2. 复习梯度下降优化算法，以及BGD/SGD
 3. 在感知器的基础上实现线性单元，并进行训练(CNN/linear_unit_main.py)
 4. 复习神经网络+反向传播算法+梯度检查
+5. 使用面向对象的方法实现全连接神经网络(CNN/full_connect_object.py)
+6. 使用向量的方法实现全连接神经网络(CNN/full_connect_vector.py)
 
 
 ##  2018.09.11  ##

@@ -1,5 +1,9 @@
 # -*- coding: UTF-8 -*-
 import numpy as np
+from datetime import datetime
+
+from com.liang.learn.utils.process_mnist import \
+    get_training_data_set, get_test_data_set
 
 
 class FullConnectedLayer(object):
@@ -30,8 +34,10 @@ class FullConnectedLayer(object):
         :return:
         '''
         self.input = input_array
-        self.output = self.activator.forward(
-            np.dot(self.W, input_array) + self.b)
+        now = np.dot(self.W, input_array)
+        now.shape = self.b.shape
+        # now_a = now + self.b
+        self.output = self.activator.forward(now + self.b)
 
     def backward(self, delta_array):
         '''
@@ -40,8 +46,12 @@ class FullConnectedLayer(object):
         :return:
         '''
         # 误差项
-        self.delta = self.activator.backward(self.input) * np.dot(
-            self.W.T, delta_array)
+        now = self.activator.backward(self.output)
+        now_a = np.dot(self.W.T, delta_array)
+        # self.delta = self.activator.backward(
+        #     self.input) * np.dot(
+        #     self.W.T, delta_array)
+        self.delta = now * now_a
         # 梯度
         self.W_grad = np.dot(delta_array, self.input.T)
         self.b_grab = delta_array
@@ -117,7 +127,8 @@ class Network(object):
         '''
         for i in range(epoch):
             for d in range(len(data_set)):
-                self.train_one_sample(labels[d], data_set[d], rate)
+                self.train_one_sample(labels[d],
+                                      data_set[d], rate)
 
     def train_one_sample(self, label, sample, rate):
         '''
@@ -137,9 +148,18 @@ class Network(object):
         :param label:
         :return:
         '''
-        delta = self.layers[-1].activator.backward(self.layers[-1].output) * (
-                label - self.layers[-1].output)
+        # now_a = self.layers[-1].activator.backward(
+        #     self.layers[-1].output)
+        # now_b = label - self.layers[-1].output
+        delta = self.layers[-1].activator.backward(
+            self.layers[-1].output) * (
+                        label - self.layers[-1].output)
+        self.layers[-1].delta = delta
+        i = True
         for layer in self.layers[::-1]:
+            if i:
+                i = False
+                continue
             layer.backward(delta)
             delta = layer.delta
         return delta
@@ -152,3 +172,64 @@ class Network(object):
         '''
         for layer in self.layers:
             layer.update(rate)
+
+
+def get_result(vec):
+    '''
+    获取网络的识别结果
+    :param vec:
+    :return:
+    '''
+    max_value_index = 0
+    max_value = 0
+    for i in range(len(vec)):
+        if vec[i] > max_value:
+            max_value = vec[i]
+            max_value_index = i
+    return max_value_index
+
+
+def evaluate(network, test_data_set, test_labels):
+    '''
+    获取网络的错误率
+    :param network:
+    :param test_data_set:
+    :param test_labels:
+    :return:
+    '''
+    error = 0
+    total = len(test_data_set)
+    for i in range(total):
+        label = get_result(test_labels[i])
+        predict = get_result(
+            network.predict(test_data_set[i]))
+        if label != predict:
+            error += 1
+    return float(error) / float(total)
+
+
+def train_and_evaluate():
+    last_error_ratio = 1.0
+    epoch = 0
+    # train_data_set, train_labels = get_training_data_set()
+    train_data_set, train_labels = get_test_data_set()
+    test_data_set, test_labels = get_test_data_set()
+    network = Network([784, 300, 10])
+    while True:
+        epoch += 1
+        network.train(train_labels, train_data_set, 0.3, 1)
+        print '%s epoch %d finished' % (
+            datetime.now(), epoch)
+        if epoch % 10 == 0:
+            error_ratio = evaluate(network, test_data_set,
+                                   test_labels)
+            print '%s after epoch %d, error ratio is %f' % (
+                datetime.now(), epoch, error_ratio)
+            if error_ratio > last_error_ratio:
+                break
+            else:
+                last_error_ratio = error_ratio
+
+
+if __name__ == '__main__':
+    train_and_evaluate()
