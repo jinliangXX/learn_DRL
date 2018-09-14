@@ -1,4 +1,13 @@
+## 2018.09.14 ##
+1. 学习TensorFlow基本概念与使用方法(http://www.tensorfly.cn/)
+2. 使用TensorFlow实现全连接神经网络(CNN/full_connect_tensorflow.py)
+3. 阅读并理解TensorFlow源码中examples/fully_connected_feed.py的实现方式
 
+
+## 2018.09.13 ##
+1. 使用向量的方法实现全连接神经网络(CNN/full_connect_vector.py)
+2. 使用全神经网络训练mnist
+3. 调试训练过程
 
 ## 2018.09.12 ##
 1. 复习线性单元+监督学习&无监督学习+目标函数
@@ -6,7 +15,6 @@
 3. 在感知器的基础上实现线性单元，并进行训练(CNN/linear_unit_main.py)
 4. 复习神经网络+反向传播算法+梯度检查
 5. 使用面向对象的方法实现全连接神经网络(CNN/full_connect_object.py)
-6. 使用向量的方法实现全连接神经网络(CNN/full_connect_vector.py)
 
 
 ##  2018.09.11  ##

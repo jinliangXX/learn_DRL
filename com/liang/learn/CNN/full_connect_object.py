@@ -4,6 +4,7 @@
 通过面向对象的思想创建的神经网络
 """
 import random
+from functools import reduce
 
 import numpy
 
@@ -182,7 +183,7 @@ class Layer(object):
         打印层的信息
         '''
         for node in self.nodes:
-            print node
+            print(node)
 
 
 class Connection(object):
@@ -245,7 +246,7 @@ class Connections(object):
 
     def dump(self):
         for conn in self.connections:
-            print conn
+            print(conn)
 
 
 class Network(object):
@@ -360,7 +361,7 @@ def gradient_check(network, sample_feature, sample_label):
     network_error = lambda vec1, vec2: \
         0.5 * reduce(lambda a, b: a + b,
                      map(lambda v: (v[0] - v[1]) * (
-                                 v[0] - v[1]),
+                             v[0] - v[1]),
                          zip(vec1, vec2)))
     # 获取网络在当前样本下每个连接的梯度
     network.get_gradient(sample_feature, sample_label)
@@ -379,7 +380,8 @@ def gradient_check(network, sample_feature, sample_label):
             network.predict(sample_feature), sample_label)
         # 根据式6计算期望的梯度值
         expected_gradient = (error2 - error1) / (
-                    2 * epsilon)
+                2 * epsilon)
         # 打印
-        print 'expected gradient: \t%f\nactual gradient: \t%f' % (
-            expected_gradient, actual_gradient)
+        print(
+            'expected gradient: \t%f\nactual gradient: \t%f' % (
+                expected_gradient, actual_gradient))
