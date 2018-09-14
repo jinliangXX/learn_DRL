@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 import argparse
+import logging
+import math
 import os
 import sys
 import time
@@ -7,7 +9,6 @@ import time
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data, \
     mnist
-from tensorflow.tensorboard.tensorboard import FLAGS
 
 IMAGE_SIZE = 28
 IMAGE_PIXELS = IMAGE_SIZE * IMAGE_SIZE
@@ -23,21 +24,24 @@ def inference(images, hidden1_units, hidden2_units):
     :return: 输出tensor with computed logits
     '''
     # 隐藏层1
-    with tf.name_scope('hidden1'):
-        weights = tf.Variable(
-            tf.truncated_normal(
-                [IMAGE_PIXELS, hidden1_units],
-                stddev=1.0 / tf.math.sqrt(
-                    float(IMAGE_PIXELS))), name='weights')
-        biases = tf.Variable(tf.zeros([hidden1_units]),
-                             name='biases ')
-        hidden1 = tf.nn.relu(
-            tf.matmul(images, weights) + biases)
+    try:
+        with tf.name_scope('hidden1'):
+            weights = tf.Variable(
+                tf.truncated_normal(
+                    [IMAGE_PIXELS, hidden1_units],
+                    stddev=1.0 / math.sqrt(
+                        float(IMAGE_PIXELS))), name='weights')
+            biases = tf.Variable(tf.zeros([hidden1_units]),
+                                 name='biases')
+            hidden1 = tf.nn.relu(
+                tf.matmul(images, weights) + biases)
+    except:
+        logging.error("创建第一个隐藏层失败", exc_info=True)
     # 隐藏层2
     with tf.name_scope('hidden2'):
         weights = tf.Variable(tf.truncated_normal(
             [hidden1_units, hidden2_units],
-            stddev=1.0 / tf.math.sqrt(
+            stddev=1.0 / math.sqrt(
                 float(hidden2_units))), name='weights')
         biases = tf.Variable(tf.zeros([hidden2_units]),
                              name='biases')
@@ -48,7 +52,7 @@ def inference(images, hidden1_units, hidden2_units):
         weights = tf.Variable(
             tf.truncated_normal(
                 [hidden2_units, NUM_CLASSES],
-                stddev=1.0 / tf.math.sqrt(
+                stddev=1.0 / math.sqrt(
                     (float(hidden2_units))),
                 name='weights'))
         biases = tf.Variable(tf.zeros([NUM_CLASSES]),
@@ -87,6 +91,7 @@ def training(loss, learning_rate):
     # 更新权重，最小化loss
     train_op = optimizer.minimize(loss,
                                   global_step=global_step)
+    return train_op
 
 
 def evaluation(logits, labels):
@@ -110,7 +115,7 @@ def placeholder_inputs(batch_size):
     '''
     images_placeholder = tf.placeholder(tf.float32, shape=(
         batch_size, mnist.IMAGE_PIXELS))
-    labels_placeholder = tf.placeholder(tf.float32,
+    labels_placeholder = tf.placeholder(tf.int64,
                                         shape=(batch_size))
     return images_placeholder, labels_placeholder
 
@@ -149,9 +154,10 @@ def do_eval(sess,
     '''
     # 预测正确的数量
     true_count = 0
-    steps_per_epoch = data_set.num_example // FLAGS.batch_size
+    # steps_per_epoch = data_set.num_example // FLAGS.batch_size
+    steps_per_epoch = FLAGS.batch_size
     num_examples = steps_per_epoch * FLAGS.batch_size
-    for step in tf.xrange(steps_per_epoch):
+    for step in range(steps_per_epoch):
         feed_dict = fill_feed_dict(data_set,
                                    images_placeholder,
                                    labels_placeholder)
@@ -193,7 +199,7 @@ def run_training():
         init = tf.global_variables_initializer()
         sess.run(init)
         # 开始循环训练
-        for step in tf.xrange(FLAGS.max_step):
+        for step in range(FLAGS.max_steps):
             # 当前时间
             start_time = time.time()
             # 获取训练值
@@ -242,7 +248,7 @@ def run_training():
                         data_sets.test)
 
 
-def main():
+def main(_):
     if tf.gfile.Exists(FLAGS.log_dir):
         tf.gfile.DeleteRecursively(FLAGS.log_dir)
     tf.gfile.MakeDirs(FLAGS.log_dir)
@@ -286,16 +292,16 @@ if __name__ == '__main__':
         '--input_data_dir',
         type=str,
         default=os.path.join(
-            os.getenv('TEST_TMPDIR', '/tmp'),
-            'tensorflow/mnist/input_data'),
+            os.getenv('TEST_TMPDIR', '/Users/xujinliang/DRL/project/learn_DRL'),
+            'com/liang/learn/CNN/MNIST_data'),
         help='Directory to put the input data.'
     )
     parser.add_argument(
         '--log_dir',
         type=str,
         default=os.path.join(
-            os.getenv('TEST_TMPDIR', '/tmp'),
-            'tensorflow/mnist/logs/fully_connected_feed'),
+            os.getenv('TEST_TMPDIR', '/Users/xujinliang/DRL/project/learn_DRL'),
+            'com/liang/learn/log'),
         help='Directory to put the log data.'
     )
     parser.add_argument(
