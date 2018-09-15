@@ -1,3 +1,3 @@
-model_checkpoint_path: "/Users/xujinliang/DRL/project/learn_DRL/com/liang/learn/log/model.ckpt-1999"
-all_model_checkpoint_paths: "/Users/xujinliang/DRL/project/learn_DRL/com/liang/learn/log/model.ckpt-999"
-all_model_checkpoint_paths: "/Users/xujinliang/DRL/project/learn_DRL/com/liang/learn/log/model.ckpt-1999"
+model_checkpoint_path: "G:\\DRL\\project\\learn_DRL\\com\\liang\\learn\\log\\model.ckpt-1999"
+all_model_checkpoint_paths: "G:\\DRL\\project\\learn_DRL\\com\\liang\\learn\\log\\model.ckpt-999"
+all_model_checkpoint_paths: "G:\\DRL\\project\\learn_DRL\\com\\liang\\learn\\log\\model.ckpt-1999"

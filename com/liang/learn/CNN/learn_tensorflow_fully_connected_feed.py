@@ -30,7 +30,8 @@ def inference(images, hidden1_units, hidden2_units):
                 tf.truncated_normal(
                     [IMAGE_PIXELS, hidden1_units],
                     stddev=1.0 / math.sqrt(
-                        float(IMAGE_PIXELS))), name='weights')
+                        float(IMAGE_PIXELS))),
+                name='weights')
             biases = tf.Variable(tf.zeros([hidden1_units]),
                                  name='biases')
             hidden1 = tf.nn.relu(
@@ -288,20 +289,38 @@ if __name__ == '__main__':
         default=100,
         help='Batch size.  Must divide evenly into the dataset sizes.'
     )
+    # parser.add_argument(
+    #     '--input_data_dir',
+    #     type=str,
+    #     default=os.path.join(
+    #         os.getenv('TEST_TMPDIR', '/Users/xujinliang/DRL/project/learn_DRL'),
+    #         'com/liang/learn/CNN/MNIST_data'),
+    #     help='Directory to put the input data.'
+    # )
     parser.add_argument(
         '--input_data_dir',
         type=str,
         default=os.path.join(
-            os.getenv('TEST_TMPDIR', '/Users/xujinliang/DRL/project/learn_DRL'),
-            'com/liang/learn/CNN/MNIST_data'),
+            os.getenv('TEST_TMPDIR',
+                      'G:\DRL\project\learn_DRL'),
+            'com\liang\learn\CNN\MNIST_data'),
         help='Directory to put the input data.'
     )
+    # parser.add_argument(
+    #     '--log_dir',
+    #     type=str,
+    #     default=os.path.join(
+    #         os.getenv('TEST_TMPDIR', '/Users/xujinliang/DRL/project/learn_DRL'),
+    #         'com/liang/learn/log'),
+    #     help='Directory to put the log data.'
+    # )
     parser.add_argument(
         '--log_dir',
         type=str,
         default=os.path.join(
-            os.getenv('TEST_TMPDIR', '/Users/xujinliang/DRL/project/learn_DRL'),
-            'com/liang/learn/log'),
+            os.getenv('TEST_TMPDIR',
+                      'G:\DRL\project\learn_DRL'),
+            'com\liang\learn\log'),
         help='Directory to put the log data.'
     )
     parser.add_argument(

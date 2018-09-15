@@ -1,7 +1,10 @@
+## 2018.09.15 ##
+1. 复习卷积神经网络
+
 ## 2018.09.14 ##
 1. 学习TensorFlow基本概念与使用方法(http://www.tensorfly.cn/)
 2. 使用TensorFlow实现全连接神经网络(CNN/full_connect_tensorflow.py)
-3. 阅读并理解TensorFlow源码中examples/fully_connected_feed.py的实现方式
+3. 阅读并实现TensorFlow源码中examples/fully_connected_feed.py的功能
 
 
 ## 2018.09.13 ##
