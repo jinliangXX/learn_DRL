@@ -42,10 +42,11 @@ import tarfile
 from six.moves import urllib
 import tensorflow as tf
 
-from tensorflow.contrib.model_pruning.examples.cifar10 import cifar10_input
 from tensorflow.contrib.model_pruning.python import pruning
 
 # Global constants describing the CIFAR-10 data set.
+from com.liang.learn.utils.model_pruning.examples.cifar10 import cifar10_input
+
 IMAGE_SIZE = cifar10_input.IMAGE_SIZE
 NUM_CLASSES = cifar10_input.NUM_CLASSES
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = cifar10_input.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN  # pylint: disable=line-too-long

@@ -33,8 +33,6 @@ from tensorflow.contrib.model_pruning.python.pruning import get_thresholds
 from tensorflow.contrib.model_pruning.python.pruning import get_weight_sparsity
 from tensorflow.contrib.model_pruning.python.pruning import get_weights
 from tensorflow.contrib.model_pruning.python.pruning import Pruning
-from tensorflow.contrib.model_pruning.python.strip_pruning_vars_lib import graph_def_from_checkpoint
-from tensorflow.contrib.model_pruning.python.strip_pruning_vars_lib import strip_pruning_vars_fn
 
 # pylint: enable=unused-import
 
