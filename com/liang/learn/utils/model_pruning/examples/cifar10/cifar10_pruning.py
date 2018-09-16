@@ -52,7 +52,7 @@ NUM_CLASSES = cifar10_input.NUM_CLASSES
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = cifar10_input.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN  # pylint: disable=line-too-long
 NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = cifar10_input.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
 BATCH_SIZE = 128
-DATA_DIR = 'G:\DRL\project\learn_DRL\com\liang\learn\\train_data'
+DATA_DIR = 'com/liang/learn/train_dir'
 
 # Constants describing the training process.
 MOVING_AVERAGE_DECAY = 0.9999  # The decay to use for the moving average.
