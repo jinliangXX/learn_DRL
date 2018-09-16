@@ -19,20 +19,20 @@ from __future__ import division
 from __future__ import print_function
 
 # pylint: disable=unused-import
-from tensorflow.contrib.model_pruning.python.layers.layers import masked_conv2d
-from tensorflow.contrib.model_pruning.python.layers.layers import masked_convolution
-from tensorflow.contrib.model_pruning.python.layers.layers import masked_fully_connected
-from tensorflow.contrib.model_pruning.python.layers.rnn_cells import MaskedBasicLSTMCell
-from tensorflow.contrib.model_pruning.python.layers.rnn_cells import MaskedLSTMCell
-from tensorflow.contrib.model_pruning.python.learning import train
-from tensorflow.contrib.model_pruning.python.pruning import apply_mask
-from tensorflow.contrib.model_pruning.python.pruning import get_masked_weights
-from tensorflow.contrib.model_pruning.python.pruning import get_masks
-from tensorflow.contrib.model_pruning.python.pruning import get_pruning_hparams
-from tensorflow.contrib.model_pruning.python.pruning import get_thresholds
-from tensorflow.contrib.model_pruning.python.pruning import get_weight_sparsity
-from tensorflow.contrib.model_pruning.python.pruning import get_weights
-from tensorflow.contrib.model_pruning.python.pruning import Pruning
+from com.liang.learn.utils.model_pruning.python.layers.layers import masked_conv2d
+from com.liang.learn.utils.model_pruning.python.layers.layers import masked_convolution
+from com.liang.learn.utils.model_pruning.python.layers.layers import masked_fully_connected
+from com.liang.learn.utils.model_pruning.python.layers.rnn_cells import MaskedBasicLSTMCell
+from com.liang.learn.utils.model_pruning.python.layers.rnn_cells import MaskedLSTMCell
+from com.liang.learn.utils.model_pruning.python.learning import train
+from com.liang.learn.utils.model_pruning.python.pruning import apply_mask
+from com.liang.learn.utils.model_pruning.python.pruning import get_masked_weights
+from com.liang.learn.utils.model_pruning.python.pruning import get_masks
+from com.liang.learn.utils.model_pruning.python.pruning import get_pruning_hparams
+from com.liang.learn.utils.model_pruning.python.pruning import get_thresholds
+from com.liang.learn.utils.model_pruning.python.pruning import get_weight_sparsity
+from com.liang.learn.utils.model_pruning.python.pruning import get_weights
+from com.liang.learn.utils.model_pruning.python.pruning import Pruning
 
 # pylint: enable=unused-import
 

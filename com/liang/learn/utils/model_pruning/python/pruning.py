@@ -60,8 +60,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from tensorflow.contrib.model_pruning.python import pruning_utils
-from tensorflow.contrib.model_pruning.python.layers import core_layers as core
+from com.liang.learn.utils.model_pruning.python import pruning_utils
+from com.liang.learn.utils.model_pruning.python.layers import core_layers as core
 from tensorflow.contrib.training.python.training import hparam
 from tensorflow.python.framework import dtypes
 from tensorflow.python.framework import ops

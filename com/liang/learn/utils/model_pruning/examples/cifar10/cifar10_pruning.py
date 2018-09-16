@@ -42,7 +42,7 @@ import tarfile
 from six.moves import urllib
 import tensorflow as tf
 
-from tensorflow.contrib.model_pruning.python import pruning
+from com.liang.learn.utils.model_pruning.python import pruning
 
 # Global constants describing the CIFAR-10 data set.
 from com.liang.learn.utils.model_pruning.examples.cifar10 import cifar10_input
@@ -52,7 +52,7 @@ NUM_CLASSES = cifar10_input.NUM_CLASSES
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = cifar10_input.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN  # pylint: disable=line-too-long
 NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = cifar10_input.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
 BATCH_SIZE = 128
-DATA_DIR = '/tmp/cifar10_data'
+DATA_DIR = 'G:\DRL\project\learn_DRL\com\liang\learn\\train_data'
 
 # Constants describing the training process.
 MOVING_AVERAGE_DECAY = 0.9999  # The decay to use for the moving average.
