@@ -1,4 +1,4 @@
 .idea/
 */__pycache__/
 *.pyc
-com/liang/learn/train_dir/
+/*com/liang/learn/train_dir/
