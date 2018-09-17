@@ -1,5 +1,15 @@
+## 2018.09.17 ##
+1. 
+
+## 2018.09.16 ##
+1. 学习TensorFlow中对于CNN神经网络封装的函数，例如cconv2d,maxpooling等等
+2. 调试cnn_tensorflow.py程序，使之跑通，完成训练及测试(CNN/cnn_tensorflow.py)
+3. 学习RL中的相关概念及分类
+
 ## 2018.09.15 ##
-1. 复习卷积神经网络
+1. 复习卷积神经网络(https://www.zybuluo.com/hanbingtao/note/485480)
+2. 学习使用tensorflow构建CNN神经网络，使之训练CIFAR-10数据集(CNN/cnn_tensorflow.py)
+3. 学习TensorFlow中可视化的内容
 
 ## 2018.09.14 ##
 1. 学习TensorFlow基本概念与使用方法(http://www.tensorfly.cn/)
