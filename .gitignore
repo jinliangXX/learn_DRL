@@ -3,4 +3,4 @@
 *.pyc
 */train_dir/
 train_dir/
-/com/liang/learn/CNN/MNIST_data/
+com/liang/train_dir/

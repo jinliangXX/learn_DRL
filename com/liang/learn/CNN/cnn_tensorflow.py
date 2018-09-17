@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 
 import tensorflow as tf
-from tensorflow.contrib.model_pruning.python import pruning
+from com.liang.learn.utils.model_pruning.python import pruning
 
 from com.liang.learn.utils.model_pruning.examples.cifar10 import \
     cifar10_pruning, cifar10_input
@@ -316,7 +316,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--train_dir',
         type=str,
-        default='train_dir/cifar',
+        default='/com/liang/train_dir/train_cifar',
         help='Directory where to write event logs and checkpoint.')
     parser.add_argument(
         '--pruning_hparams',
