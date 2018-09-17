@@ -2,6 +2,8 @@
 import argparse
 import re
 import sys
+import time
+from datetime import datetime
 
 import tensorflow as tf
 from tensorflow.contrib.model_pruning.python import pruning
@@ -37,8 +39,8 @@ def _variable_with_weight_decay(name, shape, stddev, wd):
                               stddev=stddev, dtype=dtype))
     # 是否递减
     if wd is not None:
-        weight_decay = tf.multinomial(tf.nn.l2_loss(var), wd,
-                                      name='weight_loss')
+        weight_decay = tf.multiply(tf.nn.l2_loss(var), wd,
+                                   name='weight_loss')
         tf.add_to_collection('losses', weight_decay)
     return var
 
@@ -80,7 +82,9 @@ def inference(images):
                                              stddev=5e-2, wd=0.0)
         conv = tf.nn.conv2d(norm1, pruning.apply_mask(kernel, scope),
                             [1, 1, 1, 1], padding='SAME')
-        biases = tf.get_variable('biases', [64], tf.constant_initializer(0.1))
+        biases = tf.get_variable(name='biases', shape=[64],
+                                 initializer=tf.constant_initializer(0.1),
+                                 dtype=tf.float32)
         pre_activation = tf.nn.bias_add(conv, biases)
         conv2 = tf.nn.relu(pre_activation, name=scope.name)
         tensor_name = re.sub('%s_[0-9]*/' % TOWER_NAME, '', conv2.op.name)
@@ -92,7 +96,7 @@ def inference(images):
     # pool2
     pool2 = tf.nn.max_pool(
         norm2,
-        ksize=[1, 3, 3, 3],
+        ksize=[1, 3, 3, 1],
         strides=[1, 2, 2, 1],
         padding='SAME',
         name='pool2'
@@ -117,8 +121,9 @@ def inference(images):
     with tf.variable_scope('local4') as scope:
         weights = _variable_with_weight_decay('weights', shape=[384, 192],
                                               stddev=0.04, wd=0.004)
-        biases = _variable_with_weight_decay('biases', [192],
-                                             tf.constant_initializer(0.1))
+        biases = tf.get_variable(name='biases', shape=[192],
+                                 initializer=tf.constant_initializer(0.1),
+                                 dtype=tf.float32)
         local4 = tf.nn.relu(
             tf.matmul(local3, pruning.apply_mask(weights, scope)) + biases,
             name=scope.name
@@ -131,8 +136,9 @@ def inference(images):
     with tf.variable_scope('softmax_linear') as scope:
         weights = _variable_with_weight_decay('weights', [192, NUM_CLASSES],
                                               stddev=1 / 192.0, wd=0.0)
-        biases = tf.get_variable('biases', [NUM_CLASSES],
-                                 tf.constant_initializer(0.0))
+        biases = tf.get_variable(name='biases', shape=[NUM_CLASSES],
+                                 initializer=tf.constant_initializer(0.0),
+                                 dtype=tf.float32)
         softmax_linear = tf.add(
             tf.matmul(local4, pruning.apply_mask(weights, scope)),
             biases,
@@ -142,6 +148,8 @@ def inference(images):
         tf.summary.histogram(tensor_name + '/activations', softmax_linear)
         tf.summary.scalar(tensor_name + '/sparsity',
                           tf.nn.zero_fraction(softmax_linear))
+
+    return softmax_linear
 
 
 def _loss(logits, labels):
@@ -249,7 +257,49 @@ def train():
         pruning_hparams = pruning.get_pruning_hparams().parse(
             FLAGS.pruning_hparams)
 
+        pruning_obj = pruning.Pruning(pruning_hparams, global_step=global_step)
 
+        mask_update_op = pruning_obj.conditional_mask_update_op()
+
+        pruning_obj.add_pruning_summaries()
+
+        class _LoggerHook(tf.train.SessionRunHook):
+            """Logs loss and runtime."""
+
+            def begin(self):
+                self._step = -1
+
+            def before_run(self, run_context):
+                self._step += 1
+                self._start_time = time.time()
+                return tf.train.SessionRunArgs(loss)  # Asks for loss value.
+
+            def after_run(self, run_context, run_values):
+                duration = time.time() - self._start_time
+                loss_value = run_values.results
+                if self._step % 10 == 0:
+                    num_examples_per_step = 128
+                    examples_per_sec = num_examples_per_step / duration
+                    sec_per_batch = float(duration)
+
+                    format_str = (
+                        '%s: step %d, loss = %.2f (%.1f examples/sec; %.3f '
+                        'sec/batch)')
+                    print(format_str % (
+                        datetime.now(), self._step, loss_value,
+                        examples_per_sec, sec_per_batch))
+
+        with tf.train.MonitoredTrainingSession(
+                checkpoint_dir=FLAGS.train_dir,
+                hooks=[tf.train.StopAtStepHook(last_step=FLAGS.max_steps),
+                       tf.train.NanTensorHook(loss),
+                       _LoggerHook()],
+                config=tf.ConfigProto(
+                    log_device_placement=FLAGS.log_device_placement)) as mon_sess:
+            while not mon_sess.should_stop():
+                mon_sess.run(train_op)
+                # Update the masks
+                mon_sess.run(mask_update_op)
 
 
 def main(argv=None):
@@ -266,7 +316,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--train_dir',
         type=str,
-        default='/Users/xujinliang/DRL/project/learn_DRL/com/liang/learn/train_dir/cifar',
+        default='train_dir/cifar',
         help='Directory where to write event logs and checkpoint.')
     parser.add_argument(
         '--pruning_hparams',
