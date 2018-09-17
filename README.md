@@ -1,3 +1,32 @@
+# 目录结构 #
+
+>     └─learn_DRL 
+>     │  .gitignore
+>     │  README.md
+>     └─com
+>     ├─liang
+>     │  ├─learn
+>     │  │  ├─CNN        #CNN网络学习
+>     │  │  │  │  cnn_tensorflow.py        #TensorFlow实现CNN网络，并训练cifar
+>     │  │  │  │  full_connect_object.py        #用面向对象的方法实现全连接网络
+>     │  │  │  │  full_connect_tensorflow.py        #使用TensorFlow实现全连接网络
+>     │  │  │  │  full_connect_vector.py        #使用向量的方法实现全连接网络
+>     │  │  │  │  learn_tensorflow_fully_connected_feed.py        #使用标准的TensorFlow方法实现全连接，并训练mnist数据
+>     │  │  │  │  linear_unit_main.py        #基于感知器实现线性单元
+>     │  │  │  │  perception_main.py        #训练感知器，即perceptron.py
+>     │  │  │  │  perceptron.py        #实现感知器
+>     │  │  │  └─MNIST_data
+>     │  │  ├─DQN        #DQN网络学习
+>     │  │  ├─log        #训练网络打印的日志
+>     │  │  ├─LSTM        LSTM网络学习
+>     │  │  ├─test        #测试
+>     │  │  └─utils        #工具类，一般包含下载、读取训练数据等
+>     │  └─train_dir        #存储训练数据文件夹
+
+
+
+
+# 工作记录 #
 ## 2018.09.17 ##
 1. 
 
