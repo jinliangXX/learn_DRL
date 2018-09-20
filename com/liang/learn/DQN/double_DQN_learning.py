@@ -27,6 +27,8 @@ class DeepQNetwork:
             # 不断的缩小随机的范围
             e_greedy_increment=None,
             output_graph=False,
+            double_q=True,
+            sess=None
     ):
         self.n_actions = n_actions
         self.n_features = n_features
@@ -56,16 +58,22 @@ class DeepQNetwork:
                                   in
                                   zip(t_params, e_params)]
 
-        self.sess = tf.Session()
+        # self.sess = tf.Session()
 
         if output_graph:
             # $ tensorboard --logdir=logs
             # tf.train.SummaryWriter soon be deprecated, use following
             tf.summary.FileWriter("logs/", self.sess.graph)
 
-        self.sess.run(tf.global_variables_initializer())
+        # self.sess.run(tf.global_variables_initializer())
         # 记录下每步的误差
         self.cost_his = []
+        self.double_q = double_q
+        if sess is None:
+            self.sess = tf.Session()
+            self.sess.run(tf.global_variables_initializer())
+        else:
+            self.sess = sess
 
     def _build_net(self):
         # ------------------ build evaluate_net ------------------

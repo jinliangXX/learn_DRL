@@ -27,8 +27,15 @@
 
 
 # 工作记录 #
+## 2018.09.18 ##
+1. 了解DQN的相关理论，并与Q learning对比学习
+2. 完成使用简单神经网络的DQN，并自动学习走迷宫游戏
+3. 在简单DQN上增加Double DQN和experience replay机制
+
 ## 2018.09.17 ##
-1. 
+1. 学习Q learning的相关知识及概念
+2. 实现简单的Q learning强化学习网络，使之自己玩游戏
+3. 使用Q learning完成走迷宫的游戏
 
 ## 2018.09.16 ##
 1. 学习TensorFlow中对于CNN神经网络封装的函数，例如cconv2d,maxpooling等等
