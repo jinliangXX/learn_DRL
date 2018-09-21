@@ -5,6 +5,10 @@
 from com.liang.learn.utils.process_mnist import \
     get_training_data_set
 import numpy as np
+import gym
+
+env = gym.make('MountainCar-v0')  # 定义使用 gym 库中的那一个环境
+env = env.unwrapped  # 不做这个会有很多限制
 
 if __name__ == '__main__':
     '''input_num = 10
@@ -24,8 +28,11 @@ if __name__ == '__main__':
     # print(b.shape)
     # c = a + b
     # print(c.shape)
-    a = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    for i in a[::-1]:
-        print i
-    pass
-
+    # a = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    # for i in a[::-1]:
+    #     print i
+    # pass
+    print(env.action_space)  # 查看这个环境中可用的 action 有多少个
+    print(env.observation_space)  # 查看这个环境中可用的 state 的 observation 有多少个
+    print(env.observation_space.high)  # 查看 observation 最高取值
+    print(env.observation_space.low)  # 查看 observation 最低取值
