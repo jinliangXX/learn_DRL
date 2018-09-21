@@ -27,17 +27,19 @@
 
 
 # 工作记录 #
+## 2018.09.21 ##
+1. 学习循环神经网络RNN的相关知识(https://zybuluo.com/hanbingtao/note/541458)
+2. 学习LSTM型循环神经网络相关知识(https://zybuluo.com/hanbingtao/note/581764)
+
 ## 2018.09.20 ##
 1. 尝试使用CNN取代DQN中的神经网络，由于使用gym的游戏简单，维度太低，不适用。
-2.学习Policy Gradient算法，并对比DQN论文了解其使用
-3.
-
+2. 学习Policy Gradient算法，并对比DQN论文了解其使用
+3. 对Policy Gradient算法进行简单实现，完成木棒游戏
 
 ## 2018.09.19 ##
 1. 编码过程中对TensorFlow了解不够深，重新系统学习可视化、数据读取、多线程等等
 2. 学习DRL中的OpenAI gym环境库的使用
 3. 学习DQN相关算法Sarsa，对比其与DQN的不同
-
 
 ## 2018.09.18 ##
 1. 了解DQN的相关理论，并与Q learning对比学习
