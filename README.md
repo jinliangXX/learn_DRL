@@ -27,9 +27,13 @@
 
 
 # 工作记录 #
+## 2018.09.22 ##
+1. 
+
 ## 2018.09.21 ##
 1. 学习循环神经网络RNN的相关知识(https://zybuluo.com/hanbingtao/note/541458)
 2. 学习LSTM型循环神经网络相关知识(https://zybuluo.com/hanbingtao/note/581764)
+3. 手动实现LSTM解决MNIST识别问题，由于对TensorFlow中的RNN函数不了解，失败(LSTM/RNN_learn.py)
 
 ## 2018.09.20 ##
 1. 尝试使用CNN取代DQN中的神经网络，由于使用gym的游戏简单，维度太低，不适用。
