@@ -14,13 +14,13 @@
 	│           │   ├── perception_main.py        #训练感知器，即perceptron.py
 	│           │   └── perceptron.py        #实现感知器
 	│           ├── DQN
-	│           │   ├── QLearningTable.py
-	│           │   ├── Q_learning.py
-	│           │   ├── RL_brain.py
-	│           │   ├── double_DQN_learning.py
-	│           │   ├── dqn_learning.py
-	│           │   ├── dqn_learning_CNN.py
-	│           │   └── policy_gradient.py
+	│           │   ├── QLearningTable.py      #实现Q learning中的table
+	│           │   ├── Q_learning.py      #实现最简单的Q learning
+	│           │   ├── RL_brain.py      #环境的反馈类
+	│           │   ├── double_DQN_learning.py      #double DQN的实现
+	│           │   ├── dqn_learning.py      #学习、实现DQN
+	│           │   ├── dqn_learning_CNN.py      #尝试使用CNN取代q table
+	│           │   └── policy_gradient.py      #Policy Gradients的学习、实现
 	│           ├── LSTM        LSTM网络学习
 	│           │   ├── LSTM_learn.py
 	│           │   └── RNN_learn.py
@@ -34,8 +34,16 @@
 
 
 # 工作记录 #
+## 2018.09.24 ##
+1. 继续学习TensorFlow源码中对RNN的实现，主要是对PTB数据集的训练(LSTM/LSTM_learn.py)
+2.
+
+## 2018.09.23 ##
+1. 感冒头疼，休息一天   T.T
+
+
 ## 2018.09.22 ##
-1. 学习重现TensorFlow源码中对RNN的实现，主要是对PTB数据集的训练
+1. 学习重现TensorFlow源码中对RNN的实现，主要是对PTB数据集的训练(LSTM/LSTM_learn.py)
 2. 了解RNN/LSTM有关的方法后，继续完成识别MNIST数据集的任务
 3. 阅读TensorFlow对RNN/LSTM封装的函数，与RNN/LSTM的原理相对照验证学习
 
@@ -48,22 +56,22 @@
 ## 2018.09.20 ##
 1. 尝试使用CNN取代DQN中的神经网络，由于使用gym的游戏简单，维度太低，不适用。
 2. 学习Policy Gradient算法，并对比DQN论文了解其使用
-3. 对Policy Gradient算法进行简单实现，完成木棒游戏
+3. 对Policy Gradient算法进行简单实现，完成木棒游戏(cDQN/policy_gradient.py)
 
 ## 2018.09.19 ##
-1. 编码过程中对TensorFlow了解不够深，重新系统学习可视化、数据读取、多线程等等
+1. 编码过程中对TensorFlow了解不够深，重新系统学习可视化、数据读取、多线程等等(http://www.tensorfly.cn/tfdoc/how_tos/overview.html)
 2. 学习DRL中的OpenAI gym环境库的使用
 3. 学习DQN相关算法Sarsa，对比其与DQN的不同
 
 ## 2018.09.18 ##
 1. 了解DQN的相关理论，并与Q learning对比学习
-2. 完成使用简单神经网络的DQN，并自动学习走迷宫游戏
-3. 在简单DQN上增加Double DQN和experience replay机制
+2. 完成使用简单神经网络的DQN，并自动学习走迷宫游戏(DQN/dqn_learning.py)
+3. 在简单DQN上增加Double DQN和experience replay机制(DQN/dqn_learning.py)
 
 ## 2018.09.17 ##
 1. 学习Q learning的相关知识及概念
 2. 实现简单的Q learning强化学习网络，使之自己玩游戏
-3. 使用Q learning完成走迷宫的游戏
+3. 使用Q learning完成走迷宫的游戏(DQN/Q_learning.py)
 
 ## 2018.09.16 ##
 1. 学习TensorFlow中对于CNN神经网络封装的函数，例如cconv2d,maxpooling等等
