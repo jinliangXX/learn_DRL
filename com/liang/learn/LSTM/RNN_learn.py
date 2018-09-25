@@ -54,3 +54,41 @@ def RNN(X, weights, biases):
                                              state_is_tuple=True)
     init_state = lstm_cell.zero_state(batch_size,
                                       dtype=tf.float32)  # 初始化全零 state
+
+    outputs, final_state = tf.nn.dynamic_rnn(lstm_cell,
+                                             X_in,
+                                             initial_state=init_state,
+                                             time_major=False)
+
+    results = tf.matmul(final_state[1], weights['out']) + \
+              biases['out']
+
+    return results
+
+
+pred = RNN(x, weights, biases)
+cost = tf.reduce_mean(
+    tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
+train_op = tf.train.AdamOptimizer(lr).minimize(cost)
+
+correct_pred = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+init = tf.global_variables_initializer()
+with tf.Session() as sess:
+    sess.run(init)
+    step = 0
+    while step * batch_size < training_iters:
+        batch_xs, batch_ys = mnist.train.next_batch(
+            batch_size)
+        batch_xs = batch_xs.reshape(
+            [batch_size, n_steps, n_inputs])
+        sess.run([train_op], feed_dict={
+            x: batch_xs,
+            y: batch_ys,
+        })
+        if step % 20 == 0:
+            print(sess.run(accuracy, feed_dict={
+                x: batch_xs,
+                y: batch_ys,
+            }))
+        step += 1

@@ -47,7 +47,6 @@
 2. 了解RNN/LSTM有关的方法后，继续完成识别MNIST数据集的任务
 3. 阅读TensorFlow对RNN/LSTM封装的函数，与RNN/LSTM的原理相对照验证学习
 
-
 ## 2018.09.21 ##
 1. 学习循环神经网络RNN的相关知识(https://zybuluo.com/hanbingtao/note/541458)
 2. 学习LSTM型循环神经网络相关知识(https://zybuluo.com/hanbingtao/note/581764)
