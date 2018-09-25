@@ -34,6 +34,10 @@
 
 
 # 工作记录 #
+## 2018.09.25 ##
+1. 学习Actor Critic的概念、思想与优缺点。
+2. 学习使用TensorFlow实现简单的Actor Critic()
+
 ## 2018.09.24 ##
 1. 继续学习TensorFlow源码中对RNN的实现，主要是对PTB数据集的训练(LSTM/LSTM_learn.py)
 2. 完成识别MNIST数据集的任务，了解基本流程。

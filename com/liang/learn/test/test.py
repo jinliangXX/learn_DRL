@@ -32,7 +32,14 @@ if __name__ == '__main__':
     # for i in a[::-1]:
     #     print i
     # pass
-    print(env.action_space)  # 查看这个环境中可用的 action 有多少个
-    print(env.observation_space)  # 查看这个环境中可用的 state 的 observation 有多少个
-    print(env.observation_space.high)  # 查看 observation 最高取值
-    print(env.observation_space.low)  # 查看 observation 最低取值
+    # print(env.action_space)  # 查看这个环境中可用的 action 有多少个
+    # print(env.observation_space)  # 查看这个环境中可用的 state 的 observation 有多少个
+    # print(env.observation_space.high)  # 查看 observation 最高取值
+    # print(env.observation_space.low)  # 查看 observation 最低取值
+    from numpy import *
+
+    num = 0
+    random.seed(5)
+    while (num < 5):
+        print(random.random())
+        num += 1
