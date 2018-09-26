@@ -91,7 +91,8 @@ class Actor(object):
         s = s[np.newaxis, :]
         feed_dict = {self.s: s, self.a: a,
                      self.td_error: td}
-        _, exp_v = self.sess.run([self.train_op, self.exp_v], feed_dict)
+        _, exp_v = self.sess.run(
+            [self.train_op, self.exp_v], feed_dict)
         return exp_v
 
     def choose_action(self, s):
@@ -103,7 +104,8 @@ class Actor(object):
         s = s[np.newaxis, :]
         # 神经网络输出值
         probs = self.sess.run(self.acts_prob, {s: self.s})
-        return np.random.choice(np.arange(probs.shape[1]), p=probs.ravel())
+        return np.random.choice(np.arange(probs.shape[1]),
+                                p=probs.ravel())
 
 
 class Critic(object):
@@ -116,9 +118,11 @@ class Critic(object):
         '''
         self.sess = sess
         # state
-        self.s = tf.placeholder(tf.float32, [1, n_features], "state")
+        self.s = tf.placeholder(tf.float32, [1, n_features],
+                                "state")
         # ?
-        self.v_ = tf.placeholder(tf.float32, [1, 1], "v_next")
+        self.v_ = tf.placeholder(tf.float32, [1, 1],
+                                 "v_next")
         # reward
         self.r = tf.placeholder(tf.float32, None, 'r')
 
@@ -128,9 +132,11 @@ class Critic(object):
                 units=20,
                 activation=tf.nn.relu,
                 # weights
-                kernel_initializer=tf.random_normal_initializer(0., .1),
+                kernel_initializer=tf.random_normal_initializer(
+                    0., .1),
                 # bias
-                bias_initializer=tf.constant_initializer(0.1),
+                bias_initializer=tf.constant_initializer(
+                    0.1),
                 name='l1'
             )
 
@@ -138,8 +144,15 @@ class Critic(object):
                 inputs=l1,
                 units=1,  # output units
                 activation=None,
-                kernel_initializer=tf.random_normal_initializer(0., .1),
+                kernel_initializer=tf.random_normal_initializer(
+                    0., .1),
                 # weights
-                bias_initializer=tf.constant_initializer(0.1),  # biases
+                bias_initializer=tf.constant_initializer(
+                    0.1),  # biases
                 name='V'
             )
+
+        with tf.variable_scope('squared_TD_error'):
+            # TD_error = (r+gamma*V_next) - V_eval
+            self.td_error = self.r + GAMMA * self.v_ - self.v
+            self.loss = tf.square(self.td_error)
