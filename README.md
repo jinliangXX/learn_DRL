@@ -34,6 +34,11 @@
 
 
 # 工作记录 #
+## 2018.09.26 ##
+1. 复习Policy Gradients的思想与实现逻辑。
+2. 复习普通DQN的实现方法与相关概念，并与Policy Gradients作对比。
+3. 完成Actor Critic神经网络的实现，分析其优缺点。
+
 ## 2018.09.25 ##
 1. 学习Actor Critic的概念、思想与优缺点。
 2. 学习使用TensorFlow实现简单的Actor Critic()
