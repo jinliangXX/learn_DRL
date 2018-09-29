@@ -156,3 +156,68 @@ class Critic(object):
             # TD_error = (r+gamma*V_next) - V_eval
             self.td_error = self.r + GAMMA * self.v_ - self.v
             self.loss = tf.square(self.td_error)
+
+        with tf.variable_scope('train'):
+            self.train_op = tf.train.AdamOptimizer(lr).minimize(self.loss)
+
+    def learn(self, s, r, s_):
+        '''
+        学习
+        :param s: state
+        :param r: reward
+        :param s_: 下一个state
+        :return:
+        '''
+        # 增加维度
+        s, s_ = s[np.newaxis, :], s_[np.newaxis, :]
+
+        v_ = self.sess.run(self.v, {self.s: s_})
+
+        td_error, _ = self.sess.run([self.td_error, self.train_op],
+                                    {self.s: s, self.v_: v_, self.r: r})
+
+        return td_error
+
+
+sess = tf.Session()
+actor = Actor(sess, n_features=N_F, n_actions=N_A, lr=LR_A)
+critic = Critic(sess, n_features=N_F, lr=LR_C)
+
+sess.run(tf.global_variables_initializer())
+
+if OUTPUT_GRAPH:
+    tf.summary.FileWriter("logs/", sess.graph)
+
+for i_episode in range(MAX_EPISODE):
+    s = env.reset()
+    t = 0
+    track_r = []
+    while True:
+        if RENDER: env.render()
+
+        a = actor.choose_action(s)
+
+        s_, r, done, info = env.step(a)
+
+        if done: r = -20
+
+        track_r.append(r)
+
+        td_error = critic.learn(s, r,
+                                s_)  # gradient = grad[r + gamma * V(s_) - V(s)]
+        actor.learn(s, a,
+                    td_error)  # true_gradient = grad[logPi(s,a) * td_error]
+
+        s = s_
+        t += 1
+
+        if done or t >= MAX_EP_STEPS:
+            ep_rs_sum = sum(track_r)
+
+            if 'running_reward' not in globals():
+                running_reward = ep_rs_sum
+            else:
+                running_reward = running_reward * 0.95 + ep_rs_sum * 0.05
+            if running_reward > DISPLAY_REWARD_THRESHOLD: RENDER = True  # rendering
+            print("episode:", i_episode, "  reward:", int(running_reward))
+            break
