@@ -34,6 +34,52 @@
 
 
 # 工作记录 #
+## 2018.10.07 ##
+1. 继续阅读论文Policy gradient methods for reinforcement learning with function approximation，尽量理解数学公式的推导。
+2. 从网上查找关于论文的解读，与自己所读的内容进行比对学习
+
+
+## 2018.10.06 ##
+1. 找有关policy gradients的论文观看，例如Policy gradient methods for reinforcement learning with function approximation，重复阅读
+2. 参照编码进行学习，对比论文中的实验和之前编码的不同
+
+
+## 2018.10.05 ##
+1. 继续阅读Playing Atari with Deep Reinforcement Learning，发现文献中的DQN和之前自己实现的DQN不太一样，主要是自己用的全连接，但是文献中使用CNN+全连接
+2. 了解Playing Atari with Deep Reinforcement Learning中的实验，并研究实验结果和实验结论部分。
+
+
+## 2018.10.04 ##
+1. 开始阅读英文文献，了解英文文献中对各个算法的描述及数学推导。
+2. 阅读Playing Atari with Deep Reinforcement Learning的前几部分，重复阅读进行理解
+
+
+## 2018.10.01- 2018.10.03##
+放假休息
+(๑>؂<๑）
+
+
+## 2018.09.30 ##
+1. 继续完成A3C算法的实现，使之能正常的训练，并达到显著效果
+2. 学习A3C算法相对于其他算法的优势，并探索除了用Python的threading方法，其他方法实现A3C。
+
+
+## 2018.09.29 ##
+1. 了解A3C的算法机制，并学习A3C是怎样有效利用资源的。
+2. 使用TensorFlow编码实现A3C网络，使之能够完成游戏的训练
+
+
+## 2018.09.28 ##
+1. 继续完成DDPG网络的critic部分，并完成其对游戏的训练。
+2. 对比DDPG网络和actor critic网络的区别，并分析其对结果的影响。
+
+
+## 2018.09.27 ##
+1. 学习什么是DDPG网络，以及相对比Actor Critic的优势在哪里。
+2. 实现DDPG网络中的actor部分、从环境中获取数据部分。
+3. 调试Bug
+
+
 ## 2018.09.26 ##
 1. 复习Policy Gradients的思想与实现逻辑。
 2. 复习普通DQN的实现方法与相关概念，并与Policy Gradients作对比。
